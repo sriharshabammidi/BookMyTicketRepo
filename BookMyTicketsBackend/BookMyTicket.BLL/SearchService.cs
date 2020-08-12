@@ -34,8 +34,18 @@ namespace BookMyTicket.BLL
             List<Movie> movies = _mapper.Map<List<Movie>>(_movieRepository.GetMovies());
             List<Cinema> cinemasInTheCity = _mapper.Map<List<Cinema>>(_cinemaRepository.GetCinemasByCity(cityID));
             List<Show> showsInTheCity = _mapper.Map<List<Show>>(_showsRepository.GetShowsByCinemas(cinemasInTheCity.Select(cinema => cinema.ID).ToList()));
-            movies.Where(movie=> showsInTheCity.Select(show => show.MovieID).Contains(movie.ID));
+            movies = movies.Where(movie=> showsInTheCity.Select(show => show.MovieID).Contains(movie.ID)).ToList();
             return movies;
+        }
+        public List<Cinema> GetAllShowsByMoviesAndCity(long cityID, long movieID)
+        {
+            List<Cinema> cinemasInTheCity = _mapper.Map<List<Cinema>>(_cinemaRepository.GetCinemasByCity(cityID));
+            List<Show> showsInTheCity = _mapper.Map<List<Show>>(_showsRepository.GetShowsByMovieAndCity(cinemasInTheCity.Select(cinema => cinema.ID).ToList(), movieID));
+            cinemasInTheCity.ForEach(cinema =>
+            {
+                cinema.Shows = showsInTheCity.Where(show => show.CinemaID == cinema.ID).ToList();
+            });
+            return cinemasInTheCity;
         }
 
     }

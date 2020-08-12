@@ -25,6 +25,18 @@ namespace BookMyTicket.API.Controllers
         {
             return Ok(_searchService.GetCities());
         }
+        [HttpGet]
+        [Route("GetMoviesByCity/{id}")]
+        public IActionResult Get(long id)
+        {
+            return Ok(_searchService.GetMoviesByCity(id));
+        }
+        [HttpGet]
+        [Route("GetAllShowsByMoviesAndCity/{cityId}/{cinemaId}")]
+        public IActionResult GetAllShowsByMoviesAndCity(long cityId, long cinemaId)
+        {
+            return Ok(_searchService.GetAllShowsByMoviesAndCity(cityId, cinemaId));
+        }
         // GET: api/<SearchController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -32,12 +44,6 @@ namespace BookMyTicket.API.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<SearchController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<SearchController>
         [HttpPost]

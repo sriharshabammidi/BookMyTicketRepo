@@ -7,6 +7,8 @@ namespace BookMyTicket.Interfaces.Services
 {
     public interface ISearchService
     {
-       List<City> GetCities();
+        List<City> GetCities();
+        List<Movie> GetMoviesByCity(long cityID);
+        List<Cinema> GetAllShowsByMoviesAndCity(long cityID, long movieID);
     }
 }

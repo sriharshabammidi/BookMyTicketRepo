@@ -22,5 +22,10 @@ namespace BookMyTicket.DAL
         {
             return GetBy(show => cinemaIDs.Contains(show.CinemaID));
         }
+
+        public List<Show> GetShowsByMovieAndCity(List<long> cinemaIDs, long movieID)
+        {
+            return GetBy(show => show.MovieID == movieID && cinemaIDs.Contains(show.CinemaID));
+        }
     }
 }

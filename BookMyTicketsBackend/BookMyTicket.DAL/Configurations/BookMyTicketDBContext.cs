@@ -6,6 +6,7 @@ namespace BookMyTicket.DAL.Configurations
     public class BookMyTicketDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Cinema> Cinema { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Show> Cinemas { get; set; }

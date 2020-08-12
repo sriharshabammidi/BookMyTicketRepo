@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BookMyTicket.DAL
 {
-    class CinemasRepository : BaseRepository<Cinema>, ICinemaRepository
+    public class CinemasRepository : BaseRepository<Cinema>, ICinemaRepository
     {
         public CinemasRepository(BookMyTicketDBContext dbContext)
             : base(dbContext)

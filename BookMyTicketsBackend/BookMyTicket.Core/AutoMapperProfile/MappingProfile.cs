@@ -12,8 +12,10 @@ namespace BookMyTicket.Core.AutoMapperProfile
         public MappingProfile()
         {
             CreateMap<UserProfile, User>().ReverseMap();
+            CreateMap<Entities.Cinema, Models.Cinema>().ReverseMap();
             CreateMap<Entities.City, Models.City>().ReverseMap();
             CreateMap<Entities.Movie, Models.Movie>().ReverseMap();
+            CreateMap<Entities.Show, Models.Show>().ReverseMap();
         }
     }
 }

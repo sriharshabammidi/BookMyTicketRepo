@@ -131,8 +131,10 @@ namespace BookMyTicket.API
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<ICinemaRepository, CinemasRepository>();
             services.AddScoped<ICitiesRepository, CitiesRepository>();
             services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IShowsRepository, ShowsRepository>();
         }
 
         public void ConfigureAuth(IServiceCollection services)

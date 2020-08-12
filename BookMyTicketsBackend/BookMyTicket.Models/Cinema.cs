@@ -10,5 +10,6 @@ namespace BookMyTicket.Models
         public string Name { get; set; }
         public long LayoutID { get; set; }
         public long CityID { get; set; }
+        public List<Show> Shows { get; set; }
     }
 }
