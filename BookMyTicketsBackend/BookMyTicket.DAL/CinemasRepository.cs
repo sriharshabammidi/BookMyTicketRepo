@@ -1,9 +1,7 @@
 ﻿using BookMyTicket.DAL.Configurations;
 using BookMyTicket.Entities;
 using BookMyTicket.Interfaces.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BookMyTicket.DAL
 {
@@ -13,9 +11,15 @@ namespace BookMyTicket.DAL
             : base(dbContext)
         {
         }
+
+        public Cinema GetCinemaByID(long cinemaID)
+        {
+            return GetById(cinemaID);
+        }
+
         public List<Cinema> GetCinemasByCity(long CityID)
         {
-            return this.GetBy(cinema => cinema.CityID == CityID);
+            return GetBy(cinema => cinema.CityID == CityID);
         }
     }
 }

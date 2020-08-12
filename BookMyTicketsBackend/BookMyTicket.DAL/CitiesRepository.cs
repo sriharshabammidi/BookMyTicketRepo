@@ -1,9 +1,7 @@
 ﻿using BookMyTicket.DAL.Configurations;
 using BookMyTicket.Entities;
 using BookMyTicket.Interfaces.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BookMyTicket.DAL
 {
@@ -15,7 +13,7 @@ namespace BookMyTicket.DAL
         }
         public List<City> GetCities()
         {
-            return this.GetAll();
+            return GetAll();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BookMyTicket.Core
+﻿namespace BookMyTicket.Core
 {
     public class DBSettings
     {

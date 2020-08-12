@@ -9,7 +9,7 @@ namespace BookMyTicket.Core
 {
     public static class JwtTokenHelper
     {
-        public static string GenerateJSONWebToken(JwtIssuerOptions jwtIssuerOptions, string id, string role, string sessionId = null)
+        public static string GenerateJSONWebToken(JwtIssuerOptions jwtIssuerOptions, long id, string sessionId = null)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -25,10 +25,8 @@ namespace BookMyTicket.Core
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    //new Claim(JwtRegisteredClaimNames.Email, email),
                     new Claim("UserId", id.ToString()),
                     new Claim("SessionId", _sessionId.ToString()),
-                    new Claim(ClaimTypes.Role, role),
                 }),
                 Expires = tokenExpiry,
                 SigningCredentials = credentials,

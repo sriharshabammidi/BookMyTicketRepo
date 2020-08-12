@@ -1,9 +1,7 @@
 ﻿using BookMyTicket.DAL.Configurations;
 using BookMyTicket.Entities;
 using BookMyTicket.Interfaces.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BookMyTicket.DAL
 {
@@ -26,6 +24,11 @@ namespace BookMyTicket.DAL
         public List<Show> GetShowsByMovieAndCity(List<long> cinemaIDs, long movieID)
         {
             return GetBy(show => show.MovieID == movieID && cinemaIDs.Contains(show.CinemaID));
+        }
+
+        public decimal GetPriceByShow(long showID)
+        {
+            return GetById(showID).PricePerUnit;
         }
     }
 }

@@ -3,6 +3,7 @@ using BookMyTicket.API.Filters;
 using BookMyTicket.BLL;
 using BookMyTicket.Core;
 using BookMyTicket.Core.AutoMapperProfile;
+using BookMyTicket.Core.ClientContext;
 using BookMyTicket.Core.Logger;
 using BookMyTicket.DAL;
 using BookMyTicket.DAL.Configurations;
@@ -81,9 +82,10 @@ namespace BookMyTicket.API
                     "AllowOrigin",
                     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
-            this.ConfigureSettings(services);
-            this.ConfigureDBSettings(services);
-            this.ConfigureIOC(services);
+            ConfigureSettings(services);
+            ConfigureDBSettings(services);
+            ConfigureIOC(services);
+            ConfigureAuth(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,7 +113,7 @@ namespace BookMyTicket.API
             services.Configure<DBSettings>(Configuration.GetSection("DBSettings"));
             services.AddSingleton(r => r.GetRequiredService<IOptions<DBSettings>>().Value);
 
-            services.Configure<JwtIssuerOptions>(this.Configuration.GetSection(nameof(JwtIssuerOptions)));
+            services.Configure<JwtIssuerOptions>(Configuration.GetSection(nameof(JwtIssuerOptions)));
             services.AddSingleton(r => r.GetRequiredService<IOptions<JwtIssuerOptions>>().Value);
         }
 
@@ -128,13 +130,19 @@ namespace BookMyTicket.API
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddScoped<IClientContext, ClientContext>();
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<ICinemaRepository, CinemasRepository>();
+            services.AddScoped<ICinemaSeatingRepository, CinemaSeatingRepository>();
             services.AddScoped<ICitiesRepository, CitiesRepository>();
             services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IReservationsRepository, ReservationsRepository>();
             services.AddScoped<IShowsRepository, ShowsRepository>();
+            services.AddScoped<ITicketsRepository, TicketsRepository>();
         }
 
         public void ConfigureAuth(IServiceCollection services)
@@ -142,13 +150,13 @@ namespace BookMyTicket.API
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = this.Configuration["JwtIssuerOptions:Issuer"],
+                ValidIssuer = Configuration["JwtIssuerOptions:Issuer"],
 
                 ValidateAudience = true,
-                ValidAudience = this.Configuration["JwtIssuerOptions:Audience"],
+                ValidAudience = Configuration["JwtIssuerOptions:Audience"],
 
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = this._signingKey,
+                IssuerSigningKey = _signingKey,
 
                 RequireExpirationTime = false,
                 ValidateLifetime = true,
@@ -162,7 +170,7 @@ namespace BookMyTicket.API
             }).AddJwtBearer(configureOptions =>
             {
                 configureOptions.RequireHttpsMetadata = false;
-                configureOptions.ClaimsIssuer = this.Configuration["JwtIssuerOptions:Issuer"];
+                configureOptions.ClaimsIssuer = Configuration["JwtIssuerOptions:Issuer"];
                 configureOptions.TokenValidationParameters = tokenValidationParameters;
                 configureOptions.SaveToken = true;
             });

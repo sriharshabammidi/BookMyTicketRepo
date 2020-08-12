@@ -1,7 +1,5 @@
 ﻿using BookMyTicket.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BookMyTicket.Interfaces.Services
 {
@@ -10,5 +8,6 @@ namespace BookMyTicket.Interfaces.Services
         List<City> GetCities();
         List<Movie> GetMoviesByCity(long cityID);
         List<Cinema> GetAllShowsByMoviesAndCity(long cityID, long movieID);
+        List<CinemaSeat> GetSeatingLayoutByShow(long showID);
     }
 }

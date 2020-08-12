@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BookMyTicket.Interfaces.Services;
 using BookMyTicket.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +15,7 @@ namespace BookMyTicket.API.Controllers
 
         public UserController(IUserService userService)
         {
-            this._userService = userService;
+            _userService = userService;
         }
         // GET: api/<UserController>
         [HttpGet]
@@ -36,10 +33,18 @@ namespace BookMyTicket.API.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("Signup")]
+        public bool Post(UserProfile userProfile)
         {
+            return _userService.AddUser(userProfile);
         }
-
+        [HttpPost]
+        [Route("Signin")]
+        public UserProfile Login(LoginRequest loginRequest)
+        {
+            return _userService.Login(loginRequest.UserName, loginRequest.Password);
+        }
+        
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

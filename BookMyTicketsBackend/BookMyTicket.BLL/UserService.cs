@@ -1,25 +1,49 @@
 ﻿using AutoMapper;
+using BookMyTicket.Core;
+using BookMyTicket.Entities;
 using BookMyTicket.Interfaces.Repositories;
 using BookMyTicket.Interfaces.Services;
 using BookMyTicket.Models;
+using BookMyTicket.Models.Core;
+using System.Linq;
 
 namespace BookMyTicket.BLL
 {
     public class UserService : IUserService
     {
-        public IUsersRepository _userRepository { get; set; }
+        private IUsersRepository _userRepository { get; set; }
+        private JwtIssuerOptions _jwtIssuerOptions { get; set; }
         private readonly IMapper _mapper;
 
-        public UserService(IUsersRepository userRepository,
+        public UserService(IUsersRepository userRepository, JwtIssuerOptions jwtIssuerOptions,
                            IMapper mapper)
         {
-            this._userRepository = userRepository;
-            this._mapper = mapper;
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _jwtIssuerOptions = jwtIssuerOptions;
         }
 
         public UserProfile GetUserById(long userId)
         {
-            return _mapper.Map<UserProfile>(this._userRepository.GetUser(userId));
+            return _mapper.Map<UserProfile>(_userRepository.GetUser(userId));
+        }
+        public bool AddUser(UserProfile userProfile)
+        {
+            userProfile.Password = EncryptionHelper.GetMd5Hash(userProfile.Password);
+            return _userRepository.AddUser(_mapper.Map<User>(userProfile)).ID > 0;
+        }
+        public UserProfile Login(string email, string password)
+        {
+           var user =  _userRepository.GetByCondition(user => user.Email == email).First();
+            if (user == null) {
+                throw new AppValidationException("User not found");
+            }
+            if (!EncryptionHelper.VerifyMd5Hash(password, user.Password)) {
+                throw new AppValidationException("Invalid Credentitals!");
+            }
+            var userProfile = _mapper.Map<UserProfile>(user);
+            userProfile.Token = JwtTokenHelper.GenerateJSONWebToken(_jwtIssuerOptions,user.ID);
+            return userProfile;
         }
     }
 }

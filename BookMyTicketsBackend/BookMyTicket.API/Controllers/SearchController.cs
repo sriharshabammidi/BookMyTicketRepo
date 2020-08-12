@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BookMyTicket.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +14,7 @@ namespace BookMyTicket.API.Controllers
 
         public SearchController(ISearchService searchrService)
         {
-            this._searchService = searchrService;
+            _searchService = searchrService;
         }
         [HttpGet]
         [Route("GetAllCities")]
@@ -33,9 +30,15 @@ namespace BookMyTicket.API.Controllers
         }
         [HttpGet]
         [Route("GetAllShowsByMoviesAndCity/{cityId}/{cinemaId}")]
-        public IActionResult GetAllShowsByMoviesAndCity(long cityId, long cinemaId)
+        public IActionResult GetAllShowsByMoviesAndCity(long cityID, long cinemaID)
         {
-            return Ok(_searchService.GetAllShowsByMoviesAndCity(cityId, cinemaId));
+            return Ok(_searchService.GetAllShowsByMoviesAndCity(cityID, cinemaID));
+        }
+        [HttpGet]
+        [Route("GetSeatingLayoutByShow/{id}")]
+        public IActionResult GetSeatingLayoutByShow(long id)
+        {
+            return Ok(_searchService.GetSeatingLayoutByShow(id));
         }
         // GET: api/<SearchController>
         [HttpGet]

@@ -40,7 +40,7 @@ namespace BookMyTicket.DAL
         public T Insert(T obj)
         {
             table.Add(obj);
-            //this.Save();
+            this.Save();
             return obj;
         }
 
@@ -54,7 +54,7 @@ namespace BookMyTicket.DAL
             table.Update(obj);
             //table.Attach(obj);
             //_context.Entry(obj).State = EntityState.Modified;
-            //this.Save();
+            this.Save();
             return obj;
         }
 

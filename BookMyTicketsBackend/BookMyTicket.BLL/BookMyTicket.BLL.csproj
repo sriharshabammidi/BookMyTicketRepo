@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BookMyTicket.Core\BookMyTicket.Core.csproj" />
     <ProjectReference Include="..\BookMyTicket.Interfaces\BookMyTicket.Interfaces.csproj" />
   </ItemGroup>
 

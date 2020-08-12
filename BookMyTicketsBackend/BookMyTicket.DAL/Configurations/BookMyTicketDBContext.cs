@@ -7,9 +7,12 @@ namespace BookMyTicket.DAL.Configurations
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Cinema> Cinema { get; set; }
+        public DbSet<CinemaSeating> CinemaSeating { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Show> Cinemas { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
 
         public BookMyTicketDBContext(DbContextOptions<BookMyTicketDBContext> options)

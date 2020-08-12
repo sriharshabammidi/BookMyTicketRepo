@@ -7,9 +7,9 @@ namespace BookMyTicket.Models.Core
     {
         public ApiResponse(HttpStatusCode status, T result, ApiResponseErrorResult error = null)
         {
-            this.Status = status;
-            this.Result = result;
-            this.Error = error;
+            Status = status;
+            Result = result;
+            Error = error;
         }
 
         public HttpStatusCode Status { get; set; }
@@ -25,8 +25,8 @@ namespace BookMyTicket.Models.Core
 
         public ApiResponseErrorResult(object exception, string message)
         {
-            this.Exception = exception;
-            this.Message = message;
+            Exception = exception;
+            Message = message;
         }
 
         public object Exception { get; set; }

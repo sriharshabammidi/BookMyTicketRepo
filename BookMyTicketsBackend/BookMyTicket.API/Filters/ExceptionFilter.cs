@@ -1,5 +1,4 @@
 ﻿using BookMyTicket.Core.Logger;
-using BookMyTicket.Models;
 using BookMyTicket.Models.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ namespace BookMyTicket.API.Filters
 
         public ExceptionFilter(ILogger logger)
         {
-            this._logger = logger;
+            _logger = logger;
         }
 
         public void OnException(ExceptionContext context)
@@ -23,7 +22,7 @@ namespace BookMyTicket.API.Filters
             HttpStatusCode status = HttpStatusCode.InternalServerError;
             var message = "Server error occurred.";
 
-            this._logger.LogError(context.Exception, context.Exception.Message);
+            _logger.LogError(context.Exception, context.Exception.Message);
 
             context.ExceptionHandled = true;
             HttpResponse response = context.HttpContext.Response;

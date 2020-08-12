@@ -32,26 +32,26 @@ namespace BookMyTicket.API.Filters
             IUserService userService,
             JwtIssuerOptions jwtIssuerOptions)
         {
-            this._clientContext = userContext;
-            this._httpContext = httpContext;
-            this._userService = userService;
-            this._jwtIssuerOptions = jwtIssuerOptions;
+            _clientContext = userContext;
+            _httpContext = httpContext;
+            _userService = userService;
+            _jwtIssuerOptions = jwtIssuerOptions;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            string userId = this._httpContext.HttpContext.User.FindFirst("UserId")?.Value;
+            string userId = _httpContext.HttpContext.User.FindFirst("UserId")?.Value;
             DateTime? tokenExpiry = null;
             try
             {
-                tokenExpiry = Convert.ToDateTime(this._httpContext.HttpContext.User.FindFirst("ExpiresOn")?.Value);
+                tokenExpiry = Convert.ToDateTime(_httpContext.HttpContext.User.FindFirst("ExpiresOn")?.Value);
             }
             catch (Exception)
             {
                 // throw;
             }
 
-            string sessionId = this._httpContext.HttpContext.User.FindFirst("SessionId")?.Value;
+            string sessionId = _httpContext.HttpContext.User.FindFirst("SessionId")?.Value;
 
             if (String.IsNullOrEmpty(userId) && Int32.TryParse(userId, out int id))
             {
@@ -61,22 +61,22 @@ namespace BookMyTicket.API.Filters
             }
 
 
-            this._clientContext.UserInfo = (UserProfile)this._userService.GetUserById(Int32.Parse(userId));
-            this._clientContext.SessionId = sessionId;
+            _clientContext.UserInfo = (UserProfile)_userService.GetUserById(Int32.Parse(userId));
+            _clientContext.SessionId = sessionId;
 
 
             if (tokenExpiry != null)
             {
-                this._clientContext.TokenExpiry = tokenExpiry;
+                _clientContext.TokenExpiry = tokenExpiry;
             }
 
         }
 
         public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
         {
-            if (this._clientContext.TokenExpiry != null)
+            if (_clientContext.TokenExpiry != null)
             {
-                DateTime tokenExpiresOn = Convert.ToDateTime(this._clientContext.TokenExpiry);
+                DateTime tokenExpiresOn = Convert.ToDateTime(_clientContext.TokenExpiry);
                 if (DateTime.Now.AddMinutes(15) > tokenExpiresOn)
                 {
                     // Generate new token
@@ -85,10 +85,9 @@ namespace BookMyTicket.API.Filters
                         if (string.IsNullOrEmpty(actionExecutedContext.HttpContext.Response.Headers["RefreshToken"]))
                         {
                             var token = JwtTokenHelper.GenerateJSONWebToken(
-                                this._jwtIssuerOptions,
-                                Convert.ToString(this._clientContext.UserInfo.ID),
-                                this._clientContext.UserInfo.Email,
-                                this._clientContext.SessionId);
+                                _jwtIssuerOptions,
+                                _clientContext.UserInfo.ID,
+                                _clientContext.SessionId);
                             actionExecutedContext.HttpContext.Response.Headers.Add("RefreshToken", token);
                         }
                     }
