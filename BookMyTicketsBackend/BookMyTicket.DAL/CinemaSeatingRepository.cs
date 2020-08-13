@@ -15,5 +15,8 @@ namespace BookMyTicket.DAL
         {
             return GetBy(seat => seat.LayoutID == layoutID);
         }
+        public CinemaSeating GetCinemasSeatinByID(long seatID) {
+            return GetById(seatID);
+        }
     }
 }

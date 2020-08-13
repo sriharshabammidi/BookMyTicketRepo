@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookMyTicket.Models
+﻿namespace BookMyTicket.Models
 {
     public class Reservation
     {

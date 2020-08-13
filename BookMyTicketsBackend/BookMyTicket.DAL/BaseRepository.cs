@@ -9,8 +9,8 @@ namespace BookMyTicket.DAL
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class, new()
     {
-        private BookMyTicketDBContext _context;
-        private DbSet<T> table;
+        private readonly BookMyTicketDBContext _context;
+        private readonly DbSet<T> table;
 
         public BaseRepository(BookMyTicketDBContext context)
         {
@@ -52,8 +52,6 @@ namespace BookMyTicket.DAL
         public T Update(T obj)
         {
             table.Update(obj);
-            //table.Attach(obj);
-            //_context.Entry(obj).State = EntityState.Modified;
             this.Save();
             return obj;
         }

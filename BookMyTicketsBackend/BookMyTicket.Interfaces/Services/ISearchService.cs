@@ -9,5 +9,6 @@ namespace BookMyTicket.Interfaces.Services
         List<Movie> GetMoviesByCity(long cityID);
         List<Cinema> GetAllShowsByMoviesAndCity(long cityID, long movieID);
         List<CinemaSeat> GetSeatingLayoutByShow(long showID);
+        List<long> GetReservedSeatsByShow(long showID);
     }
 }

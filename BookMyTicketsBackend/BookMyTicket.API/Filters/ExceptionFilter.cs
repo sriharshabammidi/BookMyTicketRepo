@@ -33,6 +33,10 @@ namespace BookMyTicket.API.Filters
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Result = new ObjectResult(new ApiResponse<object>(HttpStatusCode.BadRequest, null, new ApiResponseErrorResult(context.Exception.InnerException, context.Exception.Message)));
+            } else if (context.Exception is UnauthorizedException) 
+            {
+                response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                context.Result = new ObjectResult(new ApiResponse<object>(HttpStatusCode.Unauthorized, null, new ApiResponseErrorResult(context.Exception.InnerException, context.Exception.Message)));
             }
             else
             {

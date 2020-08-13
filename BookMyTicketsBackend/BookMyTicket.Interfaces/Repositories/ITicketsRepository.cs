@@ -7,6 +7,6 @@ namespace BookMyTicket.Interfaces.Repositories
     {
         Ticket GetTicketByID(long ticketID);
         List<Ticket> GetTicketsByShowID(long ticketID);
-        long InsetTicket(Ticket ticket);
+        long InsertTicket(Ticket ticket);
     }
 }

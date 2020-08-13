@@ -21,7 +21,7 @@ namespace BookMyTicket.DAL
             return GetBy(ticket => ticket.ShowID == ticketID);
         }
 
-        public long InsetTicket(Ticket ticket)
+        public long InsertTicket(Ticket ticket)
         {
             return Insert(ticket).ID;            
         }

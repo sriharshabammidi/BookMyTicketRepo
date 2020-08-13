@@ -4,7 +4,7 @@ namespace BookMyTicket.Core.Logger
 {
     public class Logger : ILogger
     {
-        private Serilog.ILogger logger;
+        private readonly Serilog.ILogger logger;
 
         public Logger(Serilog.ILogger _logger)
         {

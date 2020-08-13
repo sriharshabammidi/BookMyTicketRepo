@@ -1,10 +1,8 @@
 ﻿using BookMyTicket.DAL.Configurations;
 using BookMyTicket.Entities;
 using BookMyTicket.Interfaces.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BookMyTicket.DAL
 {

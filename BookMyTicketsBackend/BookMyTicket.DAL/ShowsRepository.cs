@@ -26,9 +26,9 @@ namespace BookMyTicket.DAL
             return GetBy(show => show.MovieID == movieID && cinemaIDs.Contains(show.CinemaID));
         }
 
-        public decimal GetPriceByShow(long showID)
+        public decimal? GetPriceByShow(long showID)
         {
-            return GetById(showID).PricePerUnit;
+            return GetById(showID)?.PricePerUnit;
         }
     }
 }

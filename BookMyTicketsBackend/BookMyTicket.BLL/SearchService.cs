@@ -10,13 +10,13 @@ namespace BookMyTicket.BLL
 {
     public class SearchService : ISearchService
     {
-        public ICitiesRepository _cityRepository { get; set; }
-        public IMoviesRepository _movieRepository { get; set; }
-        public ICinemaRepository _cinemaRepository { get; set; }
-        public IShowsRepository _showsRepository { get; set; }
-        public ICinemaSeatingRepository _cinemaSeatingRepository { get; set; }
-        public ITicketsRepository _ticketsRepository { get; set; }
-        public IReservationsRepository _reservationsRepository { get; set; }
+        private readonly ICitiesRepository _cityRepository;
+        private readonly IMoviesRepository _movieRepository;
+        private readonly ICinemaRepository _cinemaRepository;
+        private readonly IShowsRepository _showsRepository;
+        private readonly ICinemaSeatingRepository _cinemaSeatingRepository;
+        private readonly ITicketsRepository _ticketsRepository;
+        private readonly IReservationsRepository _reservationsRepository;
         private readonly IMapper _mapper;
 
         public SearchService(ICitiesRepository cityRepository, IMoviesRepository movieRepository, ICinemaRepository cinemaRepository, IShowsRepository showsRepository, ICinemaSeatingRepository cinemaSeatingRepository, ITicketsRepository ticketsRepository, IReservationsRepository reservationsRepository, IMapper mapper)
@@ -56,14 +56,24 @@ namespace BookMyTicket.BLL
         public List<CinemaSeat> GetSeatingLayoutByShow(long showID)
         {
             Cinema cinema = _mapper.Map<Cinema>(_cinemaRepository.GetCinemaByID(showID));
-            List<CinemaSeat> cinemaSeats = _mapper.Map<List<CinemaSeat>>(_cinemaSeatingRepository.GetCinemasSeatingByLayoutID(cinema.LayoutID));
+            if (cinema != null)
+            {
+                List<CinemaSeat> cinemaSeats = _mapper.Map<List<CinemaSeat>>(_cinemaSeatingRepository.GetCinemasSeatingByLayoutID(cinema.LayoutID));
+                List<long> reservations = GetReservedSeatsByShow(showID);
+                cinemaSeats.ForEach(seat =>
+                {
+                    seat.IsBooked = reservations.Contains(seat.ID);
+                });
+                return cinemaSeats;
+            }
+            return null;
+        }
+
+        public List<long> GetReservedSeatsByShow(long showID)
+        {
             List<Ticket> tickets = _mapper.Map<List<Ticket>>(_ticketsRepository.GetTicketsByShowID(showID));
             List<long> reservations = _reservationsRepository.GetReservedSeatsByTicketIDs(tickets.Select(ticket => ticket.ID).ToList());
-            cinemaSeats.ForEach(seat =>
-            {
-                seat.IsBooked = reservations.Contains(seat.ID);
-            });
-            return cinemaSeats;
+            return reservations;
         }
     }
 }
