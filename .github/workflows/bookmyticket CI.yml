@@ -19,5 +19,5 @@ jobs:
       working-directory: BookMyTicketsBackend
       run: dotnet restore
     - name: Build
-      working-directory: BookMyTicketsBackend
+      working-directory: BookMyTicketsBackend/BookMyTicket.API
       run: dotnet build --configuration Release --no-restore
