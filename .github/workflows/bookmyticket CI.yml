@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      working-directory: BookMyTicketsBackend/
+      working-directory: BookMyTicketsBackend
       run: dotnet restore
     - name: Build
-      working-directory: BookMyTicketsBackend/
+      working-directory: BookMyTicketsBackend
       run: dotnet build --configuration Release --no-restore
