@@ -68,7 +68,6 @@ namespace BookMyTicket.BLL
             }
             return null;
         }
-
         public List<long> GetReservedSeatsByShow(long showID)
         {
             List<Ticket> tickets = _mapper.Map<List<Ticket>>(_ticketsRepository.GetTicketsByShowID(showID));
