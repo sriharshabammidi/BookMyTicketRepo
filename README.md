@@ -1,4 +1,4 @@
-# Book My Tickets - Backend WebAPI
+# Book My Tickets - Backend WebAPI [![Generic badge](https://img.shields.io/badge/Hoasted%20On-schedulemyticket.com-%3C%3E.svg)](https://schedulemyticket.com/swagger/index.html)
 
 This is a sample backend for ticket booking system with the following features 
   1. Search all the movies playing in a city
