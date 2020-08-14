@@ -62,7 +62,7 @@ This is a sample backend for ticket booking system with the following features
 ### Signup
   ``` http://localhost:44367/api/User/Signup ```
   
-  Creates a user and returns true id user registration is successful. 
+  Creates a user and returns true id user registration is successful. Find the request object example below.
   
 ``` javascript
 {
@@ -75,7 +75,7 @@ This is a sample backend for ticket booking system with the following features
 ### Signin
   ``` http://localhost:44367/api/User/Signin ```
   
-  Generates user context with authentication token if credentials match with any of the registered users in the system and returns it.
+  Generates user context with authentication token if credentials match with any of the registered users in the system and returns it. Find the request object example below.
   
 ``` javascript
 {
@@ -86,7 +86,7 @@ This is a sample backend for ticket booking system with the following features
 ### Book a ticket
   ``` http://localhost:44367/api/Tickets/BookTicket ```
   
-  Books a ticket free of cost and returns the ticket.
+  Books a ticket free of cost and returns the ticket. Find the request object example below.
   
 ``` javascript
 {
