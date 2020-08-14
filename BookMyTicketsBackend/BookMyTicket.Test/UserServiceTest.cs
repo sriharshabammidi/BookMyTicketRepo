@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using BookMyTicket.BLL;
 using BookMyTicket.Core.AutoMapperProfile;
-using BookMyTicket.Core.ClientContext;
 using BookMyTicket.DAL;
 using BookMyTicket.DAL.Configurations;
 using BookMyTicket.Models;
 using BookMyTicket.Models.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace BookMyTicket.Test
 {

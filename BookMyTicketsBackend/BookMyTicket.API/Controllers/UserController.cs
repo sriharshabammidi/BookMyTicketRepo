@@ -1,7 +1,6 @@
 ﻿using BookMyTicket.Interfaces.Services;
 using BookMyTicket.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace BookMyTicket.API.Controllers
 {

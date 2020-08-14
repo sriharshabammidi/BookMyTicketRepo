@@ -5,7 +5,6 @@ using BookMyTicket.Interfaces.Repositories;
 using BookMyTicket.Interfaces.Services;
 using BookMyTicket.Models;
 using BookMyTicket.Models.Core;
-using System;
 using System.Linq;
 
 namespace BookMyTicket.BLL
