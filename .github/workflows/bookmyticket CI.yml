@@ -18,6 +18,12 @@ jobs:
     - name: Install dependencies
       working-directory: BookMyTicketsBackend
       run: dotnet restore
-    - name: Build
+    - name: Build API
       working-directory: BookMyTicketsBackend/BookMyTicket.API
       run: dotnet build --configuration Release --no-restore
+    - name: Build Test
+      working-directory: BookMyTicketsBackend/BookMyTicket.Test
+      run: dotnet build --configuration Release --no-restore
+    - name: Run Test
+      working-directory: BookMyTicketsBackend/BookMyTicket.Test
+      run: dotnet test --no-restore --verbosity normal
